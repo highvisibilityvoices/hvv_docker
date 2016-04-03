@@ -1,0 +1,24 @@
+hvvapp:
+  image: hvvapp
+  ports:
+    - "8080:80"
+  volumes:
+    - /home/lcrocker/Desktop/HVV/hvv_app:/app
+  links:
+    - hvvservice
+
+hvvservice:
+  image: hvvservice
+  ports:
+    - "8081:80"
+  volumes:
+    - /home/lcrocker/Desktop/HVV/hvv_service:/app
+  environment:
+      - MONGO_URL=mongo
+  links:
+    - mongo
+
+mongo:
+  image: mongo:3.0
+  volumes:
+    - /home/lcrocker/HVV/hvv_db:/data/db
